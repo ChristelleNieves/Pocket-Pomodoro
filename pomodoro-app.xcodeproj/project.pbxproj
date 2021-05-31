@@ -9,21 +9,31 @@
 /* Begin PBXBuildFile section */
 		BCEF7B79266039CE00E57334 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEF7B78266039CE00E57334 /* AppDelegate.swift */; };
 		BCEF7B7B266039CE00E57334 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEF7B7A266039CE00E57334 /* SceneDelegate.swift */; };
-		BCEF7B7D266039CE00E57334 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEF7B7C266039CE00E57334 /* ViewController.swift */; };
-		BCEF7B80266039CE00E57334 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCEF7B7E266039CE00E57334 /* Main.storyboard */; };
+		BCEF7B7D266039CE00E57334 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEF7B7C266039CE00E57334 /* MainViewController.swift */; };
 		BCEF7B82266039D000E57334 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCEF7B81266039D000E57334 /* Assets.xcassets */; };
 		BCEF7B85266039D000E57334 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCEF7B83266039D000E57334 /* LaunchScreen.storyboard */; };
+		BCEF7B8E26603EFD00E57334 /* UIView-Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEF7B8D26603EFD00E57334 /* UIView-Ext.swift */; };
+		BCEF7B912660545600E57334 /* SessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEF7B902660545600E57334 /* SessionViewController.swift */; };
+		BCEF7B9326620D7B00E57334 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEF7B9226620D7B00E57334 /* SettingsViewController.swift */; };
+		BCEF7B952662B7E800E57334 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEF7B942662B7E800E57334 /* TabBarViewController.swift */; };
+		BCEF7B972662CAA100E57334 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEF7B962662CAA100E57334 /* CalendarViewController.swift */; };
+		BCEF7B992664B39500E57334 /* CircularProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEF7B982664B39500E57334 /* CircularProgressBarView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		BCEF7B75266039CE00E57334 /* pomodoro-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "pomodoro-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCEF7B78266039CE00E57334 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BCEF7B7A266039CE00E57334 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		BCEF7B7C266039CE00E57334 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		BCEF7B7F266039CE00E57334 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		BCEF7B7C266039CE00E57334 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		BCEF7B81266039D000E57334 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BCEF7B84266039D000E57334 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BCEF7B86266039D000E57334 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BCEF7B8D26603EFD00E57334 /* UIView-Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView-Ext.swift"; sourceTree = "<group>"; };
+		BCEF7B902660545600E57334 /* SessionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionViewController.swift; sourceTree = "<group>"; };
+		BCEF7B9226620D7B00E57334 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		BCEF7B942662B7E800E57334 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		BCEF7B962662CAA100E57334 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
+		BCEF7B982664B39500E57334 /* CircularProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressBarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +66,44 @@
 		BCEF7B77266039CE00E57334 /* pomodoro-app */ = {
 			isa = PBXGroup;
 			children = (
+				BCEF7B8F2660523E00E57334 /* ViewControllers */,
+				BCEF7B9A2664D38A00E57334 /* Views */,
+				BCEF7B8C26603EB200E57334 /* Extensions */,
 				BCEF7B78266039CE00E57334 /* AppDelegate.swift */,
 				BCEF7B7A266039CE00E57334 /* SceneDelegate.swift */,
-				BCEF7B7C266039CE00E57334 /* ViewController.swift */,
-				BCEF7B7E266039CE00E57334 /* Main.storyboard */,
 				BCEF7B81266039D000E57334 /* Assets.xcassets */,
 				BCEF7B83266039D000E57334 /* LaunchScreen.storyboard */,
 				BCEF7B86266039D000E57334 /* Info.plist */,
 			);
 			path = "pomodoro-app";
+			sourceTree = "<group>";
+		};
+		BCEF7B8C26603EB200E57334 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				BCEF7B8D26603EFD00E57334 /* UIView-Ext.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		BCEF7B8F2660523E00E57334 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				BCEF7B7C266039CE00E57334 /* MainViewController.swift */,
+				BCEF7B902660545600E57334 /* SessionViewController.swift */,
+				BCEF7B9226620D7B00E57334 /* SettingsViewController.swift */,
+				BCEF7B942662B7E800E57334 /* TabBarViewController.swift */,
+				BCEF7B962662CAA100E57334 /* CalendarViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		BCEF7B9A2664D38A00E57334 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BCEF7B982664B39500E57334 /* CircularProgressBarView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -126,7 +165,6 @@
 			files = (
 				BCEF7B85266039D000E57334 /* LaunchScreen.storyboard in Resources */,
 				BCEF7B82266039D000E57334 /* Assets.xcassets in Resources */,
-				BCEF7B80266039CE00E57334 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,23 +175,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BCEF7B7D266039CE00E57334 /* ViewController.swift in Sources */,
+				BCEF7B972662CAA100E57334 /* CalendarViewController.swift in Sources */,
+				BCEF7B7D266039CE00E57334 /* MainViewController.swift in Sources */,
 				BCEF7B79266039CE00E57334 /* AppDelegate.swift in Sources */,
+				BCEF7B8E26603EFD00E57334 /* UIView-Ext.swift in Sources */,
+				BCEF7B992664B39500E57334 /* CircularProgressBarView.swift in Sources */,
+				BCEF7B912660545600E57334 /* SessionViewController.swift in Sources */,
+				BCEF7B952662B7E800E57334 /* TabBarViewController.swift in Sources */,
 				BCEF7B7B266039CE00E57334 /* SceneDelegate.swift in Sources */,
+				BCEF7B9326620D7B00E57334 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		BCEF7B7E266039CE00E57334 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				BCEF7B7F266039CE00E57334 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		BCEF7B83266039D000E57334 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -289,6 +325,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ELWJ3MGU37;
 				INFOPLIST_FILE = "pomodoro-app/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -296,7 +333,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "christellenieves.pomodoro-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -308,6 +345,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ELWJ3MGU37;
 				INFOPLIST_FILE = "pomodoro-app/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -315,7 +353,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "christellenieves.pomodoro-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
