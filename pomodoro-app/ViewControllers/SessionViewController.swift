@@ -11,11 +11,16 @@ import AudioToolbox
 
 class SessionViewController: UIViewController {
     
-    var focusMinutes: Int = 0
-    var breakMinutes: Int = 0
+    var muted: Bool = false
+    var paused: Bool = false
     var timerStarted: Bool = false
     var timer: Timer = Timer()
-    var muted: Bool = false
+    var focusMinutes: Int = 0
+    var breakMinutes: Int = 0
+    var totalMinutesLeft: Int = 0
+    var totalSeconds: Int = 0
+    var totalSecondsLeft: Int = 0
+    var currentSecondsLeft: Int = 0
     
     private let taskTitleLabel = UILabel()
     private let timerLabel = UILabel()
@@ -28,6 +33,9 @@ class SessionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Set up the initial values for the timer
+        initializeTimerValues()
         
         // Main view
         configureViewAppearance()
@@ -61,31 +69,45 @@ class SessionViewController: UIViewController {
         setVolumeToggleButtonConstraints()
     }
     
+    private func initializeTimerValues() {
+        totalMinutesLeft = focusMinutes
+        totalSeconds = focusMinutes * 60
+        totalSecondsLeft = totalSeconds
+        currentSecondsLeft = totalSecondsLeft % 60
+    }
+    
     private func createTimer() {
-        
-        var minutesLeft = focusMinutes
-        var totalSecondsLeft = focusMinutes * 60
-        var secondsLeft = totalSecondsLeft % 60
         
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
             
-            if secondsLeft % 60 == 0 {
-                if minutesLeft > 0 {
-                    minutesLeft -= 1
-                }
-            }
-            
-            totalSecondsLeft -= 1
-            secondsLeft = totalSecondsLeft % 60
-            self.timerLabel.text = String(format: "%02d:%02d", minutesLeft, secondsLeft)
-            
-            if totalSecondsLeft <= 0 {
+            // If the time runs out
+            if self.totalSecondsLeft <= 0 {
+                
+                // Stop the timer
                 timer.invalidate()
                 
+                // If the volume is not muted play the alert sound
                 if !self.muted {
                     AudioServicesPlaySystemSound(SystemSoundID(1304))
                 }
             }
+            // If there are more than 60 seconds left on the timer
+            else if self.totalSecondsLeft >= 60 {
+                if self.totalMinutesLeft > 0 && self.totalSecondsLeft % 60 == 0 {
+                    self.totalMinutesLeft -= 1
+                }
+            }
+            
+            // Decrement total seconds left
+            if self.totalSecondsLeft > 0 {
+                self.totalSecondsLeft -= 1
+                
+                // Update the seconds left on the current minute
+                self.currentSecondsLeft = self.totalSecondsLeft % 60
+            }
+            
+            // Update the text on the timer label
+            self.timerLabel.text = String(format: "%02d:%02d", self.totalMinutesLeft, self.currentSecondsLeft)
         }
     }
 }
@@ -133,9 +155,16 @@ extension SessionViewController {
         
         playButton.addAction(UIAction(title: "", handler: { action in
             
-            if self.timerStarted == false && self.focusMinutes != 0 {
-                self.timerStarted = true
+            if self.paused {
+                self.paused = false
                 self.createTimer()
+                self.timerStarted = true
+                self.circularProgressBarView.resumeAnimation(layer: self.circularProgressBarView.progressLayer)
+            }
+            
+            if self.timerStarted == false && self.focusMinutes != 0 {
+                self.createTimer()
+                self.timerStarted = true
                 self.circularProgressBarView.progressAnimation(duration: Double(self.focusMinutes * 60))
             }
             
@@ -152,8 +181,13 @@ extension SessionViewController {
         resetButton.alpha = 0.67
         
         resetButton.addAction(UIAction(title: "", handler: { action in
+            self.initializeTimerValues()
             self.timerLabel.text = String(format: "%02d:00", self.focusMinutes)
             self.timer.invalidate()
+            self.circularProgressBarView.progressAnimation(duration: Double(self.focusMinutes * 60))
+            self.circularProgressBarView.pauseAnimation(layer: self.circularProgressBarView.progressLayer)
+            self.paused = true
+            self.timerStarted = false
         }), for: .touchUpInside)
         
         view.addSubview(resetButton)
@@ -168,9 +202,13 @@ extension SessionViewController {
         
         pauseButton.addAction(UIAction(title: "", handler: { action in
             
-            if self.timerStarted {
+            if self.timerStarted && !self.paused {
+                self.paused = true
                 self.timerStarted = false
                 self.timer.invalidate()
+                
+                // Pause the progress bar animation
+                self.circularProgressBarView.pauseAnimation(layer: self.circularProgressBarView.progressLayer)
             }
             
         }), for: .touchUpInside)

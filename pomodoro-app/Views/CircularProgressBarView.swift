@@ -10,7 +10,7 @@ import UIKit
 class CircularProgressBarView: UIView {
     
     private var circleLayer = CAShapeLayer()
-    private var progressLayer = CAShapeLayer()
+    var progressLayer = CAShapeLayer()
     private var endPoint = CGFloat(-Double.pi / 2)
     private var startPoint = CGFloat(3 * Double.pi / 2)
     
@@ -63,5 +63,21 @@ class CircularProgressBarView: UIView {
         circularProgressAnimation.fillMode = .backwards
         circularProgressAnimation.isRemovedOnCompletion = false
         progressLayer.add(circularProgressAnimation, forKey: "progressAnim")
+    }
+    
+    func pauseAnimation(layer: CAShapeLayer) {
+        let pauseTime = layer.convertTime(CACurrentMediaTime(), from: nil)
+        layer.speed = 0.0
+        layer.timeOffset = pauseTime
+    }
+    
+    func resumeAnimation(layer: CAShapeLayer) {
+        let pauseTime = layer.timeOffset
+        layer.speed = 1.0
+        layer.timeOffset = 0.0
+        layer.beginTime = 0.0
+        
+        let timeSincePause = layer.convertTime(CACurrentMediaTime(), from: nil) - pauseTime
+        layer.beginTime = timeSincePause
     }
 }
