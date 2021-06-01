@@ -1,5 +1,5 @@
 # Pocket-Pomodoro
-A pomodoro timer iOS application. Still developing this app at the moment :)<br>
+A pomodoro timer iOS application. This app is currently in development :)<br>
 * Made with a programmatic UI. <br>
 * Allows users to track their study/work sessions using the Pomodoro method. The user chooses the duration of their focus session and break session, and the application will start the countdown and alert you when its time to take a break.
 
