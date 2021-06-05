@@ -9,19 +9,12 @@ import UIKit
 import AVFoundation
 import AudioToolbox
 
-class SessionViewController: UIViewController {
+class SessionViewController: UIViewController, PomodoroTimerDelegate {
     
+    var timer: PomodoroTimer!
     var muted: Bool = false
-    var paused: Bool = false
-    var timerStarted: Bool = false
-    var timer: Timer = Timer()
     var focusMinutes: Int = 0
     var breakMinutes: Int = 0
-    var totalMinutesLeft: Int = 0
-    var totalSeconds: Int = 0
-    var totalSecondsLeft: Int = 0
-    var currentSecondsLeft: Int = 0
-    
     private let taskTitleLabel = UILabel()
     private let timerLabel = UILabel()
     private let playButton = UIButton()
@@ -34,8 +27,9 @@ class SessionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Set up the initial values for the timer
-        initializeTimerValues()
+        // Create the timer
+        self.timer = PomodoroTimer()
+        self.timer.delegate = self
         
         // Main view
         configureViewAppearance()
@@ -69,50 +63,64 @@ class SessionViewController: UIViewController {
         setVolumeToggleButtonConstraints()
     }
     
-    private func initializeTimerValues() {
-        totalMinutesLeft = focusMinutes
-        totalSeconds = focusMinutes * 60
-        totalSecondsLeft = totalSeconds
-        currentSecondsLeft = totalSecondsLeft % 60
+    // MARK: Timer functions
+    
+    func formatTime(_ totalSeconds: Int) -> String {
+        let minutes = totalSeconds / 60 % 60
+        let seconds = totalSeconds % 60
+        return String(format:"%02i:%02i", minutes, seconds)
     }
     
-    private func createTimer() {
-        
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+    func timerTick(_ currentTime: Int) {
+        DispatchQueue.main.async {
+            self.timerLabel.text = self.formatTime(currentTime)
+        }
+    }
+    
+    func startFocusPeriod() {
+        DispatchQueue.main.async {
+            self.taskTitleLabel.text = "Focus"
+            self.timerLabel.text = self.formatTime(self.focusMinutes * 60)
+            self.circularProgressBarView.progressPathColor = UIColor.systemGreen.cgColor
+            self.circularProgressBarView.createCircularPath()
+            self.circularProgressBarView.progressAnimation(duration: Double(self.focusMinutes * 60))
+        }
+    }
+    
+    func endFocusPeriod() {
+        DispatchQueue.main.async {
             
-            // If the time runs out
-            if self.totalSecondsLeft <= 0 {
-                
-                // Stop the timer
-                timer.invalidate()
-                
-                // If the volume is not muted play the alert sound
-                if !self.muted {
-                    AudioServicesPlaySystemSound(SystemSoundID(1304))
-                }
+            // Play alert if enabled
+            if !self.muted {
+                AudioServicesPlaySystemSound(SystemSoundID(1304))
             }
-            // If there are more than 60 seconds left on the timer
-            else if self.totalSecondsLeft >= 60 {
-                if self.totalMinutesLeft > 0 && self.totalSecondsLeft % 60 == 0 {
-                    self.totalMinutesLeft -= 1
-                }
-            }
+        }
+    }
+    
+    func startBreakPeriod() {
+        DispatchQueue.main.async {
+            self.taskTitleLabel.text = "Break"
+            self.timerLabel.text = self.formatTime(self.breakMinutes * 60)
+            self.circularProgressBarView.progressPathColor = UIColor.systemRed.cgColor
+            self.circularProgressBarView.createCircularPath()
+            self.circularProgressBarView.progressAnimation(duration: Double(self.breakMinutes * 60))
+        }
+    }
+    
+    func endBreakPeriod() {
+        DispatchQueue.main.async {
+            self.timer.reset()
+            self.timer.start()
             
-            // Decrement total seconds left
-            if self.totalSecondsLeft > 0 {
-                self.totalSecondsLeft -= 1
-                
-                // Update the seconds left on the current minute
-                self.currentSecondsLeft = self.totalSecondsLeft % 60
+            if !self.muted {
+                AudioServicesPlaySystemSound(SystemSoundID(1304))
             }
-            
-            // Update the text on the timer label
-            self.timerLabel.text = String(format: "%02d:%02d", self.totalMinutesLeft, self.currentSecondsLeft)
         }
     }
 }
 
-// MARK: Appearance
+// MARK: UI Setup
+
 extension SessionViewController {
     
     private func configureViewAppearance() {
@@ -127,7 +135,6 @@ extension SessionViewController {
         taskTitleLabel.textColor = UIColor.init(white: 1, alpha: 0.50)
         taskTitleLabel.alpha = 0.67
         taskTitleLabel.font = UIFont.boldSystemFont(ofSize: 30)
-        
         view.addSubview(taskTitleLabel)
     }
     
@@ -155,19 +162,19 @@ extension SessionViewController {
         
         playButton.addAction(UIAction(title: "", handler: { action in
             
-            if self.paused {
-                self.paused = false
-                self.createTimer()
-                self.timerStarted = true
-                self.circularProgressBarView.resumeAnimation(layer: self.circularProgressBarView.progressLayer)
+            if self.timer.isRunning {
+                if self.timer.isPaused {
+                    self.timer.start()
+                }
+            }
+            // If timer isn't running, start it
+            else {
+                self.timer.focusPeriodDuration = self.focusMinutes * 60
+                self.timer.breakPeriodDuration = self.breakMinutes * 60
+                self.timer.start()
             }
             
-            if self.timerStarted == false && self.focusMinutes != 0 {
-                self.createTimer()
-                self.timerStarted = true
-                self.circularProgressBarView.progressAnimation(duration: Double(self.focusMinutes * 60))
-            }
-            
+            self.circularProgressBarView.resumeAnimation(layer: self.circularProgressBarView.progressLayer)
         }), for: .touchUpInside)
         
         view.addSubview(playButton)
@@ -181,13 +188,8 @@ extension SessionViewController {
         resetButton.alpha = 0.67
         
         resetButton.addAction(UIAction(title: "", handler: { action in
-            self.initializeTimerValues()
-            self.timerLabel.text = String(format: "%02d:00", self.focusMinutes)
-            self.timer.invalidate()
-            self.circularProgressBarView.progressAnimation(duration: Double(self.focusMinutes * 60))
-            self.circularProgressBarView.pauseAnimation(layer: self.circularProgressBarView.progressLayer)
-            self.paused = true
-            self.timerStarted = false
+            self.timer.reset()
+            self.timer.start()
         }), for: .touchUpInside)
         
         view.addSubview(resetButton)
@@ -202,15 +204,12 @@ extension SessionViewController {
         
         pauseButton.addAction(UIAction(title: "", handler: { action in
             
-            if self.timerStarted && !self.paused {
-                self.paused = true
-                self.timerStarted = false
-                self.timer.invalidate()
-                
-                // Pause the progress bar animation
-                self.circularProgressBarView.pauseAnimation(layer: self.circularProgressBarView.progressLayer)
+            if self.timer.isRunning {
+                if !self.timer.isPaused {
+                    self.timer.pause()
+                    self.circularProgressBarView.pauseAnimation(layer: self.circularProgressBarView.progressLayer)
+                }
             }
-            
         }), for: .touchUpInside)
         
         view.addSubview(pauseButton)
@@ -233,7 +232,6 @@ extension SessionViewController {
                 self.muted = false
                 self.volumeToggleButton.setImage(UIImage(systemName: "speaker.2", withConfiguration: config), for: .normal)
             }
-            
         }), for: .touchUpInside)
         
         view.addSubview(volumeToggleButton)
@@ -241,6 +239,7 @@ extension SessionViewController {
 }
 
 // MARK: Constraints
+
 extension SessionViewController {
     
     private func setTaskTitleLabelConstraints() {

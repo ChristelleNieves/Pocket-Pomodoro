@@ -9,8 +9,9 @@ import UIKit
 
 class CircularProgressBarView: UIView {
     
-    private var circleLayer = CAShapeLayer()
+    var progressPathColor = UIColor.systemGreen.cgColor
     var progressLayer = CAShapeLayer()
+    private var circleLayer = CAShapeLayer()
     private var endPoint = CGFloat(-Double.pi / 2)
     private var startPoint = CGFloat(3 * Double.pi / 2)
     
@@ -33,7 +34,7 @@ class CircularProgressBarView: UIView {
         circleLayer.lineCap = .square
         circleLayer.shouldRasterize = true
         circleLayer.fillColor = UIColor.clear.cgColor
-        circleLayer.strokeColor = UIColor.systemGreen.cgColor
+        circleLayer.strokeColor = progressPathColor
         circleLayer.rasterizationScale = 3.0 * UIScreen.main.scale
         
         layer.addSublayer(circleLayer)

@@ -18,6 +18,8 @@
 		BCEF7B952662B7E800E57334 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEF7B942662B7E800E57334 /* TabBarViewController.swift */; };
 		BCEF7B972662CAA100E57334 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEF7B962662CAA100E57334 /* CalendarViewController.swift */; };
 		BCEF7B992664B39500E57334 /* CircularProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEF7B982664B39500E57334 /* CircularProgressBarView.swift */; };
+		BCEF7B9D266B270E00E57334 /* PomodoroTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEF7B9C266B270E00E57334 /* PomodoroTimer.swift */; };
+		BCEF7B9F266B27FC00E57334 /* CountdownTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEF7B9E266B27FC00E57334 /* CountdownTimer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 		BCEF7B942662B7E800E57334 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		BCEF7B962662CAA100E57334 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		BCEF7B982664B39500E57334 /* CircularProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressBarView.swift; sourceTree = "<group>"; };
+		BCEF7B9C266B270E00E57334 /* PomodoroTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroTimer.swift; sourceTree = "<group>"; };
+		BCEF7B9E266B27FC00E57334 /* CountdownTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownTimer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +70,7 @@
 		BCEF7B77266039CE00E57334 /* pomodoro-app */ = {
 			isa = PBXGroup;
 			children = (
+				BCEF7B9B266B26D400E57334 /* Models */,
 				BCEF7B8F2660523E00E57334 /* ViewControllers */,
 				BCEF7B9A2664D38A00E57334 /* Views */,
 				BCEF7B8C26603EB200E57334 /* Extensions */,
@@ -104,6 +109,15 @@
 				BCEF7B982664B39500E57334 /* CircularProgressBarView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		BCEF7B9B266B26D400E57334 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BCEF7B9C266B270E00E57334 /* PomodoroTimer.swift */,
+				BCEF7B9E266B27FC00E57334 /* CountdownTimer.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -182,7 +196,9 @@
 				BCEF7B992664B39500E57334 /* CircularProgressBarView.swift in Sources */,
 				BCEF7B912660545600E57334 /* SessionViewController.swift in Sources */,
 				BCEF7B952662B7E800E57334 /* TabBarViewController.swift in Sources */,
+				BCEF7B9F266B27FC00E57334 /* CountdownTimer.swift in Sources */,
 				BCEF7B7B266039CE00E57334 /* SceneDelegate.swift in Sources */,
+				BCEF7B9D266B270E00E57334 /* PomodoroTimer.swift in Sources */,
 				BCEF7B9326620D7B00E57334 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

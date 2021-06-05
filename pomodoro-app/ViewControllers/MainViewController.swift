@@ -9,8 +9,8 @@ import UIKit
 
 class MainViewController: UIViewController {
     
-    var focusMinutes = 0
-    var breakMinutes = 0
+    var focusMinutes: Int = 0
+    var breakMinutes: Int = 0
     private let focusLabel = UILabel()
     private let breakLabel = UILabel()
     private let startButton = UIButton()
@@ -71,7 +71,8 @@ class MainViewController: UIViewController {
     }
 }
 
-// MARK: Appearance
+// MARK: UI Setup
+
 extension MainViewController {
     
     private func configureViewAppearance() {
@@ -158,7 +159,7 @@ extension MainViewController {
     }
     
     private  func configureBreakSlider() {
-        breakSlider.minimumValue = 5
+        breakSlider.minimumValue = 1
         breakSlider.maximumValue = 30
         breakSlider.isContinuous = true
         breakSlider.thumbTintColor = UIColor.init(white: 1, alpha: 0.57)
@@ -198,6 +199,7 @@ extension MainViewController {
 }
 
 // MARK: Constraints
+
 extension MainViewController {
     
     private func setPomodoroTitleConstraints() {
