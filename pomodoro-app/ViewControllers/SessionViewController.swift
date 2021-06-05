@@ -109,8 +109,6 @@ class SessionViewController: UIViewController, PomodoroTimerDelegate {
     
     func endBreakPeriod() {
         DispatchQueue.main.async {
-            self.timer.reset()
-            self.timer.start()
             
             if !self.muted {
                 AudioServicesPlaySystemSound(SystemSoundID(1304))
@@ -171,6 +169,7 @@ extension SessionViewController {
             else {
                 self.timer.focusPeriodDuration = self.focusMinutes * 60
                 self.timer.breakPeriodDuration = self.breakMinutes * 60
+                self.timer.repeatTimer = true
                 self.timer.start()
             }
             
@@ -189,7 +188,20 @@ extension SessionViewController {
         
         resetButton.addAction(UIAction(title: "", handler: { action in
             self.timer.reset()
-            self.timer.start()
+            
+            if self.timer.mode == .focus {
+                self.timer.start()
+                self.startFocusPeriod()
+            }
+            else {
+                self.timer.start()
+                self.startBreakPeriod()
+            }
+            
+            self.circularProgressBarView.resumeAnimation(layer: self.circularProgressBarView.progressLayer)
+            self.circularProgressBarView.pauseAnimation(layer: self.circularProgressBarView.progressLayer)
+            self.timer.pause()
+            
         }), for: .touchUpInside)
         
         view.addSubview(resetButton)

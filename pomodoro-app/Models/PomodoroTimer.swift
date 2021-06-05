@@ -26,7 +26,7 @@ public class PomodoroTimer {
     
     public var mode: Mode = .focus
     
-    public var repeatTimer: Bool = false
+    public var repeatTimer: Bool = true
     
     public var delegate: PomodoroTimerDelegate?
     
@@ -105,6 +105,14 @@ extension PomodoroTimer: CountdownTimerDelegate {
         }
         else {
             self.timer.stop()
+            self.delegate?.endBreakPeriod()
+            
+            // Switch mode to focus
+            self.mode = .focus
+            self.timer.duration = self.focusPeriodDuration
+            
+            self.timer.start()
+            self.delegate?.startFocusPeriod()
         }
     }
 }
