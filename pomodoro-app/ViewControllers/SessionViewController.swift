@@ -165,6 +165,7 @@ extension SessionViewController {
             if self.timer.isRunning {
                 if self.timer.isPaused {
                     self.timer.start()
+                    self.circularProgressBarView.resumeAnimation(layer: self.circularProgressBarView.progressLayer)
                 }
             }
             // If timer isn't running, start it
@@ -173,9 +174,9 @@ extension SessionViewController {
                 self.timer.breakPeriodDuration = self.breakMinutes * 60
                 self.timer.repeatTimer = true
                 self.timer.start()
+                self.circularProgressBarView.resumeAnimation(layer: self.circularProgressBarView.progressLayer)
             }
             
-            self.circularProgressBarView.resumeAnimation(layer: self.circularProgressBarView.progressLayer)
         }), for: .touchUpInside)
         
         view.addSubview(playButton)
