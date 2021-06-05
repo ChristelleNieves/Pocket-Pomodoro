@@ -79,6 +79,7 @@ class SessionViewController: UIViewController, PomodoroTimerDelegate {
     
     func startFocusPeriod() {
         DispatchQueue.main.async {
+            self.timer.mode = .focus
             self.taskTitleLabel.text = "Focus"
             self.timerLabel.text = self.formatTime(self.focusMinutes * 60)
             self.circularProgressBarView.progressPathColor = UIColor.systemGreen.cgColor
@@ -99,6 +100,7 @@ class SessionViewController: UIViewController, PomodoroTimerDelegate {
     
     func startBreakPeriod() {
         DispatchQueue.main.async {
+            self.timer.mode = .rest
             self.taskTitleLabel.text = "Break"
             self.timerLabel.text = self.formatTime(self.breakMinutes * 60)
             self.circularProgressBarView.progressPathColor = UIColor.systemRed.cgColor
