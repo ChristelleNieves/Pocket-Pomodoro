@@ -146,7 +146,7 @@ extension SessionViewController {
     }
     
     private func configureTimerLabel() {
-        timerLabel.text = String(format: "%02d:00", focusMinutes)
+        timerLabel.text = self.formatTime(self.focusMinutes * 60)
         timerLabel.alpha = 0.67
         timerLabel.textColor = UIColor.init(white: 1, alpha: 0.50)
         timerLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 115, weight: UIFont.Weight.ultraLight)
@@ -161,6 +161,13 @@ extension SessionViewController {
         playButton.alpha = 0.67
         
         playButton.addAction(UIAction(title: "", handler: { action in
+            
+            if self.timer.mode == .focus {
+                guard self.focusMinutes > 0 else { return }
+            }
+            else {
+                guard self.breakMinutes > 0 else { return }
+            }
             
             if self.timer.isRunning {
                 if self.timer.isPaused {

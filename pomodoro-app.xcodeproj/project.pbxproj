@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BCC92261266C22EE0025A4A8 /* DayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC92260266C22EE0025A4A8 /* DayCollectionViewCell.swift */; };
 		BCEF7B79266039CE00E57334 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEF7B78266039CE00E57334 /* AppDelegate.swift */; };
 		BCEF7B7B266039CE00E57334 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEF7B7A266039CE00E57334 /* SceneDelegate.swift */; };
 		BCEF7B7D266039CE00E57334 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEF7B7C266039CE00E57334 /* MainViewController.swift */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BCC92260266C22EE0025A4A8 /* DayCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayCollectionViewCell.swift; sourceTree = "<group>"; };
 		BCEF7B75266039CE00E57334 /* pomodoro-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "pomodoro-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCEF7B78266039CE00E57334 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BCEF7B7A266039CE00E57334 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				BCEF7B982664B39500E57334 /* CircularProgressBarView.swift */,
+				BCC92260266C22EE0025A4A8 /* DayCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -196,6 +199,7 @@
 				BCEF7B992664B39500E57334 /* CircularProgressBarView.swift in Sources */,
 				BCEF7B912660545600E57334 /* SessionViewController.swift in Sources */,
 				BCEF7B952662B7E800E57334 /* TabBarViewController.swift in Sources */,
+				BCC92261266C22EE0025A4A8 /* DayCollectionViewCell.swift in Sources */,
 				BCEF7B9F266B27FC00E57334 /* CountdownTimer.swift in Sources */,
 				BCEF7B7B266039CE00E57334 /* SceneDelegate.swift in Sources */,
 				BCEF7B9D266B270E00E57334 /* PomodoroTimer.swift in Sources */,
